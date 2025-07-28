@@ -29,7 +29,7 @@ export const asynccurrentstudent = () => async (dispatch) => {
 
 export const asynctstudentsignup = (student) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/student/signup", student);
+    const { data } = await axios.get("/student/signup", student);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Signup failed")));
@@ -38,7 +38,7 @@ export const asynctstudentsignup = (student) => async (dispatch) => {
 
 export const asynctstudentsignin = (student) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/student/signin", student);
+    const { data } = await axios.get("/student/signin", student);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Signin failed")));
@@ -58,7 +58,7 @@ export const asynctstudentupdate =
   (updatedData) => async (dispatch, getState) => {
     try {
       const { _id } = getState().studentReducer.student;
-      const { data } = await axios.post(`/student/update/${_id}`, updatedData);
+      const { data } = await axios.get(`/student/update/${_id}`, updatedData);
       dispatch(asynccurrentstudent());
       if (typeof toast !== "undefined")
         toast.success("Profile updated successfully!");
@@ -71,7 +71,7 @@ export const asynctstudentupdate =
 export const asyncstudentavatar = (avatar) => async (dispatch, getState) => {
   try {
     const { _id } = getState().studentReducer.student;
-    const { data } = await axios.post("/student/avatar/" + _id, avatar);
+    const { data } = await axios.get("/student/avatar/" + _id, avatar);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Avatar upload failed")));
@@ -83,7 +83,7 @@ export const asyncstudentresetpassword =
   (password) => async (dispatch, getState) => {
     try {
       const { _id } = getState().studentReducer.student;
-      const { data } = await axios.post(
+      const { data } = await axios.get(
         "/student/reset-password/" + _id,
         password
       );
@@ -97,7 +97,7 @@ export const asyncstudentresetpassword =
 export const asyncstudentforgetpassword =
   (email) => async (dispatch) => {
     try {
-      const { data } = await axios.post("/student/send-mail/", email);
+      const { data } = await axios.get("/student/send-mail/", email);
       dispatch(asynccurrentstudent());
     } catch (error) {
       dispatch(iserorr(getErrorMessage(error, "Forgot password failed")));
@@ -107,7 +107,7 @@ export const asyncstudentforgetpassword =
 
 export const asyncstudentotppassword = (pwd) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/student/forget-link/", pwd);
+    const { data } = await axios.get("/student/forget-link/", pwd);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "OTP password failed")));
@@ -117,7 +117,7 @@ export const asyncstudentotppassword = (pwd) => async (dispatch) => {
 
 export const asyncalljobs = () => async (dispatch) => {
   try {
-    const { data } = await axios.post("/student/alljob/");
+    const { data } = await axios.get("/student/alljob/");
     dispatch(addjobs(data.job));
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Fetch jobs failed")));
@@ -127,7 +127,7 @@ export const asyncalljobs = () => async (dispatch) => {
 
 export const asyncallinternships = () => async (dispatch) => {
   try {
-    const { data } = await axios.post("/student/allinternship/");
+    const { data } = await axios.get("/student/allinternship/");
     dispatch(addinternships(data.internship));
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Fetch internships failed")));
@@ -153,7 +153,7 @@ export const asyncdeleteavatar = () => async (dispatch, getState) => {
 
 export const asyncapplyjobstudent = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/student/apply/job/" + id);
+    const { data } = await axios.get("/student/apply/job/" + id);
     dispatch(asynccurrentstudent());
     dispatch(asyncalljobs());
   } catch (error) {
@@ -165,7 +165,7 @@ export const asyncapplyjobstudent = (id) => async (dispatch) => {
 export const asyncapplyinternshipstudent =
   (id) => async (dispatch) => {
     try {
-      const { data } = await axios.post("/student/apply/internship/" + id);
+      const { data } = await axios.get("/student/apply/internship/" + id);
       dispatch(asynccurrentstudent());
       dispatch(asyncallinternships());
     } catch (error) {
@@ -176,7 +176,7 @@ export const asyncapplyinternshipstudent =
 
 export const asysnaddeducation = (edu) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/add-edu", edu);
+    const { data } = await axios.get("/resume/add-edu", edu);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Add education failed")));
@@ -186,7 +186,7 @@ export const asysnaddeducation = (edu) => async (dispatch) => {
 
 export const asyncdeleteeducation = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/delete-edu/" + id);
+    const { data } = await axios.get("/resume/delete-edu/" + id);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Delete education failed")));
@@ -196,7 +196,7 @@ export const asyncdeleteeducation = (id) => async (dispatch) => {
 
 export const asyncediteducation = (id, edu) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/edit-edu/" + id, edu);
+    const { data } = await axios.get("/resume/edit-edu/" + id, edu);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Edit education failed")));
@@ -206,7 +206,7 @@ export const asyncediteducation = (id, edu) => async (dispatch) => {
 
 export const asysnaddjob = (job) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/add-job", job);
+    const { data } = await axios.get("/resume/add-job", job);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Add job failed")));
@@ -216,7 +216,7 @@ export const asysnaddjob = (job) => async (dispatch) => {
 
 export const asyncdeletejob = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/delete-job/" + id);
+    const { data } = await axios.get("/resume/delete-job/" + id);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Delete job failed")));
@@ -226,7 +226,7 @@ export const asyncdeletejob = (id) => async (dispatch) => {
 
 export const asynceditjob = (id, job) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/edit-job/" + id, job);
+    const { data } = await axios.get("/resume/edit-job/" + id, job);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Edit job failed")));
@@ -236,7 +236,7 @@ export const asynceditjob = (id, job) => async (dispatch) => {
 
 export const asysnaddinternship = (intern) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/add-intern", intern);
+    const { data } = await axios.get("/resume/add-intern", intern);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Add internship failed")));
@@ -246,7 +246,7 @@ export const asysnaddinternship = (intern) => async (dispatch) => {
 
 export const asyncdeleteinternship = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/delete-intern/" + id);
+    const { data } = await axios.get("/resume/delete-intern/" + id);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Delete internship failed")));
@@ -257,7 +257,7 @@ export const asyncdeleteinternship = (id) => async (dispatch) => {
 export const asynceditinternship =
   (id, intern) => async (dispatch) => {
     try {
-      const { data } = await axios.post("/resume/edit-intern/" + id, intern);
+      const { data } = await axios.get("/resume/edit-intern/" + id, intern);
       dispatch(asynccurrentstudent());
     } catch (error) {
       dispatch(iserorr(getErrorMessage(error, "Edit internship failed")));
@@ -269,7 +269,7 @@ export const asynceditinternship =
 
 export const asysnaddresponsibility = (resp) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/add-resp", resp);
+    const { data } = await axios.get("/resume/add-resp", resp);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Add responsibility failed")));
@@ -279,7 +279,7 @@ export const asysnaddresponsibility = (resp) => async (dispatch) => {
 
 export const asyncdeleteresponsebility = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/delete-resp/" + id);
+    const { data } = await axios.get("/resume/delete-resp/" + id);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Delete responsibility failed")));
@@ -290,7 +290,7 @@ export const asyncdeleteresponsebility = (id) => async (dispatch) => {
 export const asynceditresponsibility =
   (id, resp) => async (dispatch) => {
     try {
-      const { data } = await axios.post("/resume/edit-resp/" + id, resp);
+      const { data } = await axios.get("/resume/edit-resp/" + id, resp);
       dispatch(asynccurrentstudent());
     } catch (error) {
       dispatch(iserorr(getErrorMessage(error, "Edit responsibility failed")));
@@ -302,7 +302,7 @@ export const asynceditresponsibility =
 
 export const asysnaddcourse = (course) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/add-course", course);
+    const { data } = await axios.get("/resume/add-course", course);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Add course failed")));
@@ -312,7 +312,7 @@ export const asysnaddcourse = (course) => async (dispatch) => {
 
 export const asyncdeletecourse = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/delete-course/" + id);
+    const { data } = await axios.get("/resume/delete-course/" + id);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Delete course failed")));
@@ -322,7 +322,7 @@ export const asyncdeletecourse = (id) => async (dispatch) => {
 
 export const asynceditcourse = (id, course) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/edit-course/" + id, course);
+    const { data } = await axios.get("/resume/edit-course/" + id, course);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Edit course failed")));
@@ -334,7 +334,7 @@ export const asynceditcourse = (id, course) => async (dispatch) => {
 
 export const asysnaddproject = (proj) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/add-proj", proj);
+    const { data } = await axios.get("/resume/add-proj", proj);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Add project failed")));
@@ -344,7 +344,7 @@ export const asysnaddproject = (proj) => async (dispatch) => {
 
 export const asyncdeleteproject = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/delete-proj/" + id);
+    const { data } = await axios.get("/resume/delete-proj/" + id);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Delete project failed")));
@@ -354,7 +354,7 @@ export const asyncdeleteproject = (id) => async (dispatch) => {
 
 export const asynceditproject = (id, proj) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/edit-proj/" + id, proj);
+    const { data } = await axios.get("/resume/edit-proj/" + id, proj);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Edit project failed")));
@@ -366,7 +366,7 @@ export const asynceditproject = (id, proj) => async (dispatch) => {
 
 export const asysnaddskills = (skill) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/add-skill", skill);
+    const { data } = await axios.get("/resume/add-skill", skill);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Add skill failed")));
@@ -376,7 +376,7 @@ export const asysnaddskills = (skill) => async (dispatch) => {
 
 export const asyncdeleteskills = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/delete-skill/" + id);
+    const { data } = await axios.get("/resume/delete-skill/" + id);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Delete skill failed")));
@@ -386,7 +386,7 @@ export const asyncdeleteskills = (id) => async (dispatch) => {
 
 export const asynceditskills = (id, skill) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/edit-skill/" + id, skill);
+    const { data } = await axios.get("/resume/edit-skill/" + id, skill);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Edit skill failed")));
@@ -398,7 +398,7 @@ export const asynceditskills = (id, skill) => async (dispatch) => {
 
 export const asysnaddacmp = (acmp) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/add-acmp", acmp);
+    const { data } = await axios.get("/resume/add-acmp", acmp);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Add ACMP failed")));
@@ -408,7 +408,7 @@ export const asysnaddacmp = (acmp) => async (dispatch) => {
 
 export const asyncdeleteacmp = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/delete-acmp/" + id);
+    const { data } = await axios.get("/resume/delete-acmp/" + id);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Delete ACMP failed")));
@@ -418,7 +418,7 @@ export const asyncdeleteacmp = (id) => async (dispatch) => {
 
 export const asynceditacmp = (id, acmp) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/resume/edit-acmp/" + id, acmp);
+    const { data } = await axios.get("/resume/edit-acmp/" + id, acmp);
     dispatch(asynccurrentstudent());
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Edit ACMP failed")));
