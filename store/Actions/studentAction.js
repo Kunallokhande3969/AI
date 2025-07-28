@@ -17,7 +17,7 @@ const getErrorMessage = (error, fallback = "Something went wrong") => {
 
 export const asynccurrentstudent = () => async (dispatch) => {
   try {
-    const { data } = await axios.post("/student");
+    const { data } = await axios.get("/student");
     dispatch(addstudent(data));
   } catch (error) {
     dispatch(iserorr(getErrorMessage(error, "Failed to fetch student")));
